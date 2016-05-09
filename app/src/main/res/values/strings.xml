@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AnimalTracking</string>
+    <string name="formTitle">Add an Animal</string>
+    <string name="morph">Morph name</string>
+
+    <string name="sex1">Male</string>
+    <string name="sex2">Female</string>
+
+    <string name="feedbackbody">The body</string>
+    <string name="feedbackresponse">response</string>
+    <string name="feedbackbutton">Button</string>
+    <string name="sex">Sex of Animal</string>
+</resources>
