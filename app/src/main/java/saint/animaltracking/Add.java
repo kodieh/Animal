@@ -50,9 +50,9 @@ public class Add extends AppCompatActivity
         sexSpinner = (Spinner) findViewById(R.id.SpinnerSex);
         sex = sexSpinner.getSelectedItem().toString();
         morphField.setText("");
-        animalx.setId(id);
-        animalx.setMorph(morph);
-        animalx.setSex(sex);
+        animalx.setId(id.toString());
+        animalx.setMorph(morph.toString());
+        animalx.setSex(sex.toString());
 
         x = db.createAnimal(animalx);
 }

@@ -69,7 +69,6 @@ public class DatabaseHelper
     class DatabaseOpenHelper extends SQLiteOpenHelper {
         DatabaseOpenHelper(Context context) {
             super(context, DATABASE_NAME, null, DB_VERSION);
-            System.out.println("HEREG");
         }
 
 
@@ -182,6 +181,23 @@ public class DatabaseHelper
         }
         return animals;
     }
+    /*
+       Deletes a specific animal from DB based on ID
+     */
+
+    public void deleteAnimal(int animalID)
+    {
+        SQLiteDatabase db = AT.getReadableDatabase();
+        db.delete(TABLE_INFO, KEY_ID + " = " + animalID, null);
+        db.delete(TABLE_ANIMAL, KEY_ID + " = " + animalID, null);
+        /*
+        String myQuery = "DELETE FROM " + TABLE_ANIMAL + " WHERE "
+                    + KEY_ID + " = " + animalID;
+        String myotherQuery = "DELETE FROM " + TABLE_INFO + " WHERE "
+                + KEY_ID + " = '" + animalID;
+        db.rawQuery(myotherQuery,null);
+        db.rawQuery(myQuery,null);
+    */}
 
     /*
     Gets all animalInfo based on ID
@@ -211,6 +227,17 @@ public class DatabaseHelper
                 while (c.moveToNext());
             }
         return animalInfo;
+    }
+
+    public void updateAnimal(animal anim)
+    {
+        SQLiteDatabase db = AT.getReadableDatabase();
+        ContentValues dataToInsert = new ContentValues();
+        dataToInsert.put(ANIM_MORPH, anim.getMorph());
+        dataToInsert.put(ANIM_SEX, anim.getSex());
+        String where = KEY_ID + "=?";
+        String[] whereArgs = new String[] {String.valueOf(anim.getId())};
+        db.update(TABLE_ANIMAL, dataToInsert, where, whereArgs);
     }
 
     private boolean checkDataBase(Context context) {

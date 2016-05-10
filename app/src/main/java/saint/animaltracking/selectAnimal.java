@@ -56,15 +56,14 @@ public class selectAnimal extends AppCompatActivity
                 startActivity(intent);
             }
         });
-//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                animal anim = (animal) lv.getItemAtPosition(position);
-//                Intent intent = new Intent(getApplicationContext(), specificAnimal.class);
-//                intent.putExtra("animal", anim);
-//                startActivity(intent);
-//            }
-//        });
+    }
+    @Override
+    public void onBackPressed() {
+
+        Intent intent = new Intent(this, Main.class);
+        startActivity(intent);
+
+        super.onBackPressed();
     }
 
 }
