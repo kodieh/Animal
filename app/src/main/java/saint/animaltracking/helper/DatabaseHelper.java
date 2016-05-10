@@ -96,8 +96,8 @@ public class DatabaseHelper
             SQLiteDatabase db = AT.getWritableDatabase();
 
             ContentValues values = new ContentValues();
-            values.put(ANIM_SEX, animal.getSex());
             values.put(ANIM_MORPH, animal.getMorph());
+            values.put(ANIM_SEX, animal.getSex());
             //values.put(KEY_ID, animal.getId());
 
             System.out.println("123");
@@ -173,8 +173,8 @@ public class DatabaseHelper
             do {
                 animal animal = new animal();
                 animal.setId(c.getString(c.getColumnIndex(KEY_ID)));
-                animal.setMorph(c.getString(c.getColumnIndex(ANIM_MORPH)));
-                animal.setSex(c.getString(c.getColumnIndex(ANIM_SEX)));
+                animal.setMorph(c.getString(c.getColumnIndex(ANIM_SEX)));
+                animal.setSex(c.getString(c.getColumnIndex(ANIM_MORPH)));
 
                 //add to list
                 animals.add(animal);

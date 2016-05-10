@@ -41,15 +41,30 @@ public class selectAnimal extends AppCompatActivity
         adapter = new AnimalAdapter(this, R.layout.list_item, animal);
 
         lv.setAdapter(adapter);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                onClick(view, position);
+            }
+
+            public void onClick(View v, int position)
+            {
                 animal anim = (animal) lv.getItemAtPosition(position);
                 Intent intent = new Intent(getApplicationContext(), specificAnimal.class);
                 intent.putExtra("animal", anim);
                 startActivity(intent);
             }
         });
+//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                animal anim = (animal) lv.getItemAtPosition(position);
+//                Intent intent = new Intent(getApplicationContext(), specificAnimal.class);
+//                intent.putExtra("animal", anim);
+//                startActivity(intent);
+//            }
+//        });
     }
 
 }
