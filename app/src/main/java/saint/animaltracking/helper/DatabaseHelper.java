@@ -1,22 +1,12 @@
 package saint.animaltracking.helper;
 
-import android.database.DatabaseUtils;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+
+import android.database.sqlite.*;
+import android.content.*;
+import android.database.*;
 import android.util.Log;
-import android.widget.ListView;
-
-import org.xml.sax.DTDHandler;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-
 import saint.animaltracking.animal;
 import saint.animaltracking.animalInformation;
 
@@ -187,14 +177,7 @@ public class DatabaseHelper
         SQLiteDatabase db = AT.getReadableDatabase();
         db.delete(TABLE_INFO, KEY_ID + " = " + animalID, null);
         db.delete(TABLE_ANIMAL, KEY_ID + " = " + animalID, null);
-        /*
-        String myQuery = "DELETE FROM " + TABLE_ANIMAL + " WHERE "
-                    + KEY_ID + " = " + animalID;
-        String myotherQuery = "DELETE FROM " + TABLE_INFO + " WHERE "
-                + KEY_ID + " = '" + animalID;
-        db.rawQuery(myotherQuery,null);
-        db.rawQuery(myQuery,null);
-    */}
+    }
 
     /*
     Gets all animalInfo based on ID
@@ -236,7 +219,9 @@ public class DatabaseHelper
         String[] whereArgs = new String[] {String.valueOf(anim.getId())};
         db.update(TABLE_ANIMAL, dataToInsert, where, whereArgs);
     }
-
+    /*
+    Ensure the DB is actually there.
+     */
     private boolean checkDataBase(Context context) {
         SQLiteDatabase checkDB = null;
         String DB_FULL_PATH = context.getDatabasePath(DATABASE_NAME).toString();

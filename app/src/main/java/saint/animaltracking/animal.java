@@ -1,8 +1,6 @@
 package saint.animaltracking;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
+import android.os.*;
 
 /**
  * Created by Kodie on 3/30/2016.
@@ -16,7 +14,9 @@ public class animal implements Parcelable
     public animal(){
 
     }
-
+    /*
+    Construction of the object
+     */
     public animal(String morph, String sex, String id)
     {
         _id = id;
@@ -65,7 +65,11 @@ public class animal implements Parcelable
         this._morph = data[1];
         this._sex = data[2];
     }
-
+    /*
+    This next bit I don't get why it's necessary
+    however I cannot pass objects between activities
+    without it.
+     */
     @Override
     public int describeContents()
     {

@@ -12,9 +12,11 @@ import android.view.View;
  */
 public class Main extends Activity
 {
+    /*
+    on create, set the layout.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("This is what a print looks like");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
 
@@ -26,13 +28,13 @@ public class Main extends Activity
         Intent intent = new Intent(this, selectAnimal.class);
         startActivity(intent);
     }
-
+    /**Called when the user clicks the ScanQR button */
     public void scanQR(View view)
     {
         Intent intent = new Intent(this, scanQR.class);
         startActivity(intent);
     }
-
+    /**Called when the user clicks the Add button */
     public void Add(View view)
     {
         Intent intent = new Intent(this, Add.class);

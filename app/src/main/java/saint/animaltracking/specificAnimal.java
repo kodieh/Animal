@@ -1,25 +1,13 @@
 package saint.animaltracking;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.preference.TwoStatePreference;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
+import android.widget.*;
 import java.util.List;
-
 import saint.animaltracking.helper.AnimalInfoAdapter;
 import saint.animaltracking.helper.DatabaseHelper;
 
@@ -28,6 +16,9 @@ import saint.animaltracking.helper.DatabaseHelper;
  * Created by Kodie on 5/2/2016.
  */
 public class specificAnimal extends AppCompatActivity {
+    /*
+    Initialize ALL the variables.
+     */
     String id;
     private SQLiteOpenHelper AT;
     TextView morph, sex;
@@ -43,6 +34,16 @@ public class specificAnimal extends AppCompatActivity {
     private ListView lv;
     AnimalInfoAdapter adapter;
 
+    /*
+    On create:
+        open the db
+        set the necessary object arrays
+        push the object arrays to the list
+        push the list to the adapter
+        set the listview on the adapter
+        ????
+        show all the entries for the specific animal.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +70,11 @@ public class specificAnimal extends AppCompatActivity {
         FC.setOnClickListener(FCListener);
         delete.setOnClickListener(deleteListener);
     }
+    /*
+    the following View.OnClickListeners wait for the user
+    to click the corresponding button and then it acts upon
+    which id (of the button) is picked.
+     */
     View.OnClickListener updateListener = new View.OnClickListener()
     {
         public void onClick(View v)
@@ -128,6 +134,11 @@ public class specificAnimal extends AppCompatActivity {
             alert11.show();
         }
     };
+    /*
+    for feeding and cleaning, this opens the database
+    and mashes everything together to create the new
+    fed and clean entry.
+     */
     public void writeToDb()
     {
         DatabaseHelper db = new DatabaseHelper(this.getApplicationContext());
@@ -145,6 +156,9 @@ public class specificAnimal extends AppCompatActivity {
         startActivity(intent);
 
     }
+    /*
+    if deleted, go back to the list of animals.
+     */
     public void onBackPressed() {
 
         Intent intent = new Intent(this, selectAnimal.class);

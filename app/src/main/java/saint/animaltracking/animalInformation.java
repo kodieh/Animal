@@ -52,8 +52,5 @@ public class animalInformation
     {
         return this.shedDate;
     }
-    public String getAte()
-    {
-        return this.ate;
-    }
+    public String getAte() { return this.ate; }
 }

@@ -9,6 +9,10 @@ import android.view.Window;
  */
 public class scanQR extends AppCompatActivity
 {
+    /*
+    this is a stub for when I enable QR Scanning
+    capabilities.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

@@ -3,12 +3,8 @@ package saint.animaltracking;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.ActionMenuItemView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
+import android.widget.*;
 import saint.animaltracking.helper.DatabaseHelper;
 
 /**
@@ -16,10 +12,17 @@ import saint.animaltracking.helper.DatabaseHelper;
  */
 public class FeedClean extends AppCompatActivity
 {
+    /*
+    Initialzie necessary variables.
+     */
     animalInformation animInfo = new animalInformation();
     EditText shed, weight, ate;
     animal anim;
     Button button;
+    /*
+    On creation of this page, set the layout,
+    and get the text boxes id's.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -40,7 +43,9 @@ public class FeedClean extends AppCompatActivity
             }
         });
     }
-
+    /*
+    On button click, feed and clean the animal.
+     */
     public void writeToDb()
     {
         DatabaseHelper db = new DatabaseHelper(this.getApplicationContext());

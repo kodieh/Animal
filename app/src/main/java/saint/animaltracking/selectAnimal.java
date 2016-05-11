@@ -1,18 +1,10 @@
 package saint.animaltracking;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import java.util.ArrayList;
+import android.widget.*;
 import java.util.List;
 
 import saint.animaltracking.helper.AnimalAdapter;
@@ -25,10 +17,20 @@ import static android.location.Location.convert;
  */
 public class selectAnimal extends AppCompatActivity
 {
+    /*
+    Initialize necessary variables.
+     */
     private ListView lv;
     private List<animal> animal;
     private DatabaseHelper db;
     AnimalAdapter adapter;
+
+    /*
+    On create, open the DB, get all animals,
+    throw all animals into the array and then
+    push that to the Adapter which then
+    displays it properly in the ListView
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -57,6 +59,10 @@ public class selectAnimal extends AppCompatActivity
             }
         });
     }
+    /*
+    When the back button is pressed from this screen
+    it returns to the main page.
+     */
     @Override
     public void onBackPressed() {
 

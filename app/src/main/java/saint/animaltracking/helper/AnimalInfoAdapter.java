@@ -19,13 +19,20 @@ import saint.animaltracking.animalInformation;
  */
 public class AnimalInfoAdapter extends ArrayAdapter<animalInformation>
 {
+    /*
+    Adapter to set the context and play intermediary to
+    the ListView for an animal's information.
+    */
     int resource;
     public AnimalInfoAdapter(Context context, int resource, List<animalInformation> animalInfo)
     {
         super(context, resource, animalInfo);
         this.resource = resource;
     }
-
+    /*
+    Setting of the view for the ListView of
+    the animals information.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {

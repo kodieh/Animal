@@ -1,15 +1,11 @@
 package saint.animaltracking;
 
 
-import android.database.sqlite.SQLiteDatabase;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import java.util.UUID;
-
+import android.widget.*;
 import saint.animaltracking.helper.DatabaseHelper;
 
 
@@ -18,6 +14,9 @@ import saint.animaltracking.helper.DatabaseHelper;
  */
 public class Add extends AppCompatActivity
 {
+    /*
+    Initialization of necessary variables.
+     */
     Button mButton;
     EditText morphField;
     Spinner sexSpinner;
@@ -25,6 +24,10 @@ public class Add extends AppCompatActivity
     animal animalx;
     DatabaseHelper db;
     long x;
+    /*
+    On create of the class, create the necessary
+    objects and wait for a click of the button.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,27 +43,21 @@ public class Add extends AppCompatActivity
                 }
         );
     }
-
-    public void writeToDb()
-    {
+    /*
+    Once the button is clicked, do the
+    DB work method.
+     */
+    public void writeToDb() {
         DatabaseHelper db = new DatabaseHelper(this.getApplicationContext());
-        id = uniqueID();
         morphField = (EditText) findViewById(R.id.EditTextMorph);
         morph = morphField.getText().toString();
         sexSpinner = (Spinner) findViewById(R.id.SpinnerSex);
         sex = sexSpinner.getSelectedItem().toString();
         morphField.setText("");
-        animalx.setId(id.toString());
         animalx.setMorph(morph.toString());
         animalx.setSex(sex.toString());
 
         x = db.createAnimal(animalx);
-}
-
-    public String uniqueID()
-    {
-        String uniqueID = UUID.randomUUID().toString();
-
-        return uniqueID;
     }
 }
+
