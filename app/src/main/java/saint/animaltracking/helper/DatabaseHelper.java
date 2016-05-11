@@ -199,7 +199,7 @@ public class DatabaseHelper
                     animal.setId(c.getString(c.getColumnIndex(KEY_ID)));
                     animal.setWeight(c.getString(c.getColumnIndex(INFO_WEIGHT)));
                     animal.setShedDate(c.getString(c.getColumnIndex(INFO_SHED)));
-                    animal.setAte(c.getString(c.getColumnIndex(INFO_WEIGHT)));
+                    animal.setAte(c.getString(c.getColumnIndex(INFO_ATE)));
 
                     //add to the list
                     animalInfo.add(animal);

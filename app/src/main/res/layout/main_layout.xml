@@ -7,14 +7,14 @@
         android:layout_height="100dp"
         android:id="@+id/Select"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_launcherselect"
         android:onClick="selectAnimal" />
 
     <ImageButton
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:id="@+id/Scan"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_launcherscan"
         android:onClick="scanQR"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
@@ -24,7 +24,7 @@
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:id="@+id/Add"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_launcheradd"
         android:onClick="Add"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

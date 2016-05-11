@@ -56,5 +56,9 @@ public class FeedClean extends AppCompatActivity
 
         db.createInfo(animInfo);
 
+        Intent intent = new Intent(getApplicationContext(), specificAnimal.class);
+        intent.putExtra("animal", anim);
+        startActivity(intent);
+
     }
 }
