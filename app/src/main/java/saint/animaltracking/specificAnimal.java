@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.TwoStatePreference;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,6 +20,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import saint.animaltracking.helper.AnimalInfoAdapter;
 import saint.animaltracking.helper.DatabaseHelper;
 
 
@@ -39,6 +41,7 @@ public class specificAnimal extends AppCompatActivity {
     private List<animalInformation> animalInfo;
     private DatabaseHelper db;
     private ListView lv;
+    AnimalInfoAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,10 @@ public class specificAnimal extends AppCompatActivity {
         update = (Button) findViewById(R.id.update);
         FC = (Button) findViewById(R.id.FC);
         delete = (Button) findViewById(R.id.delete);
+
+        adapter = new AnimalInfoAdapter(this, R.layout.list_item, animalInfo);
+
+        lv.setAdapter(adapter);
 
         update.setOnClickListener(updateListener);
         FC.setOnClickListener(FCListener);

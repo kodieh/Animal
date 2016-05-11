@@ -55,8 +55,8 @@ public class DatabaseHelper
     + " TEXT , " + ANIM_SEX + " TEXT " + ")";
 
     private static final String CREATE_TABLE_INFO = "CREATE TABLE "
-            + TABLE_INFO + "(" + KEY_ID + " STRING PRIMARY KEY," + INFO_WEIGHT
-            + "INTEGER," + INFO_SHED + " DATETIME," + INFO_ATE + "TEXT" + ")";
+            + TABLE_INFO + "(" + KEY_ID + " STRING, " + INFO_WEIGHT
+            + " INTEGER," + INFO_SHED + " DATETIME," + INFO_ATE + " TEXT" + ")";
 
     private SQLiteOpenHelper AT;
     public DatabaseHelper(Context context)
@@ -110,23 +110,20 @@ public class DatabaseHelper
     /*
      * Create Info for an animal.
      */
-    public String createInfo(animalInformation animalInfo) {
-        String id;
+    public void createInfo(animalInformation animalInfo) {
+        String id, weight, shed, ate;
         SQLiteDatabase db = AT.getWritableDatabase();
         ContentValues values = new ContentValues();
-
-        values.put(KEY_ID, animalInfo.getId());
-        values.put(INFO_WEIGHT, animalInfo.getWeight());
-        values.put(INFO_SHED, animalInfo.getShedDate());
-        values.put(INFO_ATE, animalInfo.getAte());
-
-        Long animal_id = db.insert(TABLE_INFO, null, values);
         id = animalInfo.getId();
-        if (animal_id != null) {
-            return id;
-        } else {
-            return null;
-        }
+        weight = animalInfo.getWeight();
+        shed = animalInfo.getShedDate();
+        ate = animalInfo.getAte();
+        values.put(KEY_ID, id);
+        values.put(INFO_WEIGHT,weight);
+        values.put(INFO_SHED, shed);
+        values.put(INFO_ATE, ate);
+
+       db.insert(TABLE_INFO, null, values);
     }
 
     /*
@@ -217,7 +214,7 @@ public class DatabaseHelper
                 {
                     animalInformation animal = new animalInformation();
                     animal.setId(c.getString(c.getColumnIndex(KEY_ID)));
-                    animal.setWeight(c.getInt(c.getColumnIndex(INFO_WEIGHT)));
+                    animal.setWeight(c.getString(c.getColumnIndex(INFO_WEIGHT)));
                     animal.setShedDate(c.getString(c.getColumnIndex(INFO_SHED)));
                     animal.setAte(c.getString(c.getColumnIndex(INFO_WEIGHT)));
 

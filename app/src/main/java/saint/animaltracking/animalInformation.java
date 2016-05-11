@@ -5,15 +5,15 @@ package saint.animaltracking;
  */
 public class animalInformation
 {
-    int weight;
-    String shedDate,ate, id;
+
+    String shedDate,ate, id, weight;
     //default constructor
     public animalInformation()
     {
 
     }
     //constructors
-    public animalInformation(String id, int weight, String shedDate, String ate)
+    public animalInformation(String id, String weight, String shedDate, String ate)
     {
         this.id = id;
         this.weight = weight;
@@ -26,7 +26,7 @@ public class animalInformation
     {
         this.id = id;
     }
-    public void setWeight(int weight)
+    public void setWeight(String weight)
     {
         this.weight = weight;
     }
@@ -44,7 +44,7 @@ public class animalInformation
     {
         return this.id;
     }
-    public int getWeight()
+    public String getWeight()
     {
         return this.weight;
     }
@@ -54,6 +54,6 @@ public class animalInformation
     }
     public String getAte()
     {
-        return this.getAte();
+        return this.ate;
     }
 }
