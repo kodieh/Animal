@@ -53,4 +53,11 @@ public class animalInformation
         return this.shedDate;
     }
     public String getAte() { return this.ate; }
+
+    /*
+    Change tables to have an ate table, shed table, and weight table
+    with three fields: id, (ate,shed,weight), and a date format;
+    Cascading changes to how to feed/clean, displaying this information,
+    and database structure
+     */
 }

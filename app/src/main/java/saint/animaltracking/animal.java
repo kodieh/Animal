@@ -7,13 +7,16 @@ import android.os.*;
  */
 public class animal implements Parcelable
 {
+    //Object qualities, may expand
     String _morph;
     String _sex;
     String _id;
-    //default constructor
-    public animal(){
 
+    //default constructor
+    public animal()
+    {
     }
+
     /*
     Construction of the object
      */

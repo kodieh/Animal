@@ -1,19 +1,12 @@
 package saint.animaltracking.helper;
 
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
+import android.view.*;
+import android.widget.*;
 import java.util.List;
-
 import saint.animaltracking.R;
 import saint.animaltracking.animalInformation;
+
 /**
  * Created by Kodieh on 5/10/2016.
  */

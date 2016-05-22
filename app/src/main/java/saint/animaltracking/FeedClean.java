@@ -13,7 +13,7 @@ import saint.animaltracking.helper.DatabaseHelper;
 public class FeedClean extends AppCompatActivity
 {
     /*
-    Initialzie necessary variables.
+    Initialize necessary variables.
      */
     animalInformation animInfo = new animalInformation();
     EditText shed, weight, ate;

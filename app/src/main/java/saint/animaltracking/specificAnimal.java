@@ -19,13 +19,11 @@ public class specificAnimal extends AppCompatActivity {
     /*
     Initialize ALL the variables.
      */
-    String id;
     private SQLiteOpenHelper AT;
     TextView morph, sex;
     animal anim;
-    Button update, FC, delete;
+    Button update, FC, delete, mButton;
     Context context;
-    Button mButton;
     EditText morphField;
     Spinner sexSpinner;
     String morphup, sexup;
@@ -45,33 +43,51 @@ public class specificAnimal extends AppCompatActivity {
         show all the entries for the specific animal.
      */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
+        //Get the saved instance and set the layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spec);
+
+        //Instantiate the DatabaseHelper variable
         db = new DatabaseHelper(this.getApplicationContext());
+        //Instantiate the ListView variable, setting the layout
         lv = (ListView) findViewById(R.id.lstText);
+
+        //Retrieve the intent from the previous activity;
         Intent intent = getIntent();
+
+        //Globalize the context
         context = this;
+
+        //Instantiate the animal variable from the intent from the previous activity
         anim = intent.getParcelableExtra("animal");
-        animalInfo = db.animalInfo(Integer.parseInt(anim.getId()));
+
+        //Get the list of all animal info from the database
+        animalInfo = db.getAnimalInfo(Integer.parseInt(anim.getId()));
+
+        //Set the layout and the text of the TextViews for Sex and Morph
         sex = (TextView) findViewById(R.id.specificSex);
         morph = (TextView) findViewById(R.id.specificMorph);
         sex.setText(anim.getSex());
         morph.setText(anim.getMorph());
+
+        //Assign the variables to the id's of the buttons
         update = (Button) findViewById(R.id.update);
         FC = (Button) findViewById(R.id.FC);
         delete = (Button) findViewById(R.id.delete);
 
+        //Assign the adapter with the animalInfo list
         adapter = new AnimalInfoAdapter(this, R.layout.list_item, animalInfo);
-
         lv.setAdapter(adapter);
 
+        //Set the onClickListeners for when a button is pressed.
         update.setOnClickListener(updateListener);
         FC.setOnClickListener(FCListener);
         delete.setOnClickListener(deleteListener);
     }
     /*
-    the following View.OnClickListeners wait for the user
+    the following View.OnClickListener's wait for the user
     to click the corresponding button and then it acts upon
     which id (of the button) is picked.
      */

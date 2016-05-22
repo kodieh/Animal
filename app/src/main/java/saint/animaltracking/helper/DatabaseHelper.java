@@ -18,10 +18,13 @@ public class DatabaseHelper
 {
     //Logcat tag
     private static final String LOG = "DatabaseHelper";
+
     //DB Version
     private static final int DB_VERSION = 1;
+
     //DB Name
     private static final String DATABASE_NAME = "AT";
+
     //Table Names
     private static final String TABLE_ANIMAL = "animal";
     private static final String TABLE_INFO = "information";
@@ -47,8 +50,10 @@ public class DatabaseHelper
     private static final String CREATE_TABLE_INFO = "CREATE TABLE "
             + TABLE_INFO + "(" + KEY_ID + " STRING, " + INFO_WEIGHT
             + " INTEGER," + INFO_SHED + " DATETIME," + INFO_ATE + " TEXT" + ")";
-
+    //SQLite helper
     private SQLiteOpenHelper AT;
+
+    //Chained constructor.
     public DatabaseHelper(Context context)
     {
         AT = new DatabaseOpenHelper(context);
@@ -56,125 +61,171 @@ public class DatabaseHelper
         boolean x = checkDataBase(context);
 
     }
-    class DatabaseOpenHelper extends SQLiteOpenHelper {
-        DatabaseOpenHelper(Context context) {
+
+    //Default constructor
+    class DatabaseOpenHelper extends SQLiteOpenHelper
+    {
+        //Chained constructor
+        DatabaseOpenHelper(Context context)
+        {
             super(context, DATABASE_NAME, null, DB_VERSION);
         }
 
-
+        //OnCreate of app, create tables.
         @Override
-        public void onCreate(SQLiteDatabase db) {
-                System.out.println("234");
+        public void onCreate(SQLiteDatabase db)
+        {
                 db.execSQL(CREATE_TABLE_ANIMAL);
-
-
                 db.execSQL(CREATE_TABLE_INFO);
         }
 
+        /*
+        OnUpgrade, as far as I am aware, is used to make changes to the database upon further
+        releases. At this time, I do not have a use for this; thus it is here but unimplemented.
+         */
         @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            //i dont understand this enough to make it do something right now.
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+        {
         }
     }
+
     /*
      * Creating an animal
      */
+    public void createAnimal(animal animal)
+    {
+        //Open a writable database.
+        SQLiteDatabase db = AT.getWritableDatabase();
 
-        public long createAnimal(animal animal) {
+        /*
+        Create and load the values into a ContentValues
+        The ID is auto-incremented in the database.
+         */
+        ContentValues values = new ContentValues();
+        values.put(ANIM_MORPH, animal.getMorph());
+        values.put(ANIM_SEX, animal.getSex());
 
-            SQLiteDatabase db = AT.getWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(ANIM_MORPH, animal.getMorph());
-            values.put(ANIM_SEX, animal.getSex());
-            //values.put(KEY_ID, animal.getId());
-
-            System.out.println("123");
-            //insert row
-            long animal_id = db.insert(TABLE_ANIMAL, null, values);
-            db.close();
-            return animal_id;
-        }
+        //Insert the animal into the database.
+        db.insert(TABLE_ANIMAL, null, values);
+        db.close();
+    }
 
 
     /*
      * Create Info for an animal.
      */
-    public void createInfo(animalInformation animalInfo) {
-        String id, weight, shed, ate;
-        SQLiteDatabase db = AT.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        id = animalInfo.getId();
-        weight = animalInfo.getWeight();
-        shed = animalInfo.getShedDate();
-        ate = animalInfo.getAte();
-        values.put(KEY_ID, id);
-        values.put(INFO_WEIGHT,weight);
-        values.put(INFO_SHED, shed);
-        values.put(INFO_ATE, ate);
+    public void createInfo(animalInformation animalInfo)
+    {
+       //Get a writable database
+       SQLiteDatabase db = AT.getWritableDatabase();
 
+       //Create and load the values into a ContentValues
+       ContentValues values = new ContentValues();
+       String id = animalInfo.getId();
+       String weight = animalInfo.getWeight();
+       String shed = animalInfo.getShedDate();
+       String ate = animalInfo.getAte();
+       values.put(KEY_ID, id);
+       values.put(INFO_WEIGHT,weight);
+       values.put(INFO_SHED, shed);
+       values.put(INFO_ATE, ate);
+
+       //Insert the info into the table.
        db.insert(TABLE_INFO, null, values);
     }
 
     /*
      * Get a single animal
      */
-
-    public animal getAnimal(String animalID) {
+    public animal getAnimal(String animalID)
+    {
+        //Get a writable database
         SQLiteDatabase db = AT.getReadableDatabase();
+
+        //Create the animal object
         animal animal = new animal();
+
+        //Create the query statement
         String selectQuery = "SELECT * FROM " + TABLE_ANIMAL + " WHERE "
                 + KEY_ID + " = " + animalID;
 
+        //Log any issues
         Log.e(LOG, selectQuery);
 
+        //Create a cursor to walk through the result.
         Cursor c = db.rawQuery(selectQuery, null);
-        if (c != null) {
+
+        //If the result is not null, start from the top
+        if (c != null)
+        {
             c.moveToFirst();
         }
 
+        //Set the animal object according to what the query returns
         animal.setId(c.getString(c.getColumnIndex(KEY_ID)));
         animal.setMorph(c.getString(c.getColumnIndex(ANIM_MORPH)));
         animal.setSex(c.getString(c.getColumnIndex(ANIM_SEX)));
 
-        //returns an array in the form of ID, Morph, Sex;
+        //returns the animal object
         return animal;
     }
+
     /*
     gets all animals in the db
      */
-
-    public List<animal> getAllAnimal() {
+    public List<animal> getAllAnimal()
+    {
+        //Get a readable database
         SQLiteDatabase db = AT.getReadableDatabase();
-        //creates the array to the size of the rows in the table
+
+        //Creates the list to load the animals into
         List<animal> animals = new ArrayList<animal>();
 
+        //Query for getting all animals.
         String selectQuery = "SELECT * FROM " + TABLE_ANIMAL;
+
+        //Logging for errors
         Log.e(LOG, selectQuery);
 
+        //Create a cursor to walk through the results
         Cursor c = db.rawQuery(selectQuery, null);
 
-        //loop through all rows, add to array
-        if (c.moveToFirst()) {
-            do {
+        //loop through all rows, add to list
+        if (c.moveToFirst())
+        {
+            do
+            {
+                /*
+                Create the animal object
+                set the qualities of the object
+                add the object to the list
+                repeat
+                 */
                 animal animal = new animal();
                 animal.setId(c.getString(c.getColumnIndex(KEY_ID)));
                 animal.setMorph(c.getString(c.getColumnIndex(ANIM_SEX)));
                 animal.setSex(c.getString(c.getColumnIndex(ANIM_MORPH)));
-
-                //add to list
                 animals.add(animal);
-            } while (c.moveToNext());
+            }
+            while (c.moveToNext());
         }
+
+        //Return the list to the calling method
         return animals;
     }
+
     /*
        Deletes a specific animal from DB based on ID
      */
-
     public void deleteAnimal(int animalID)
     {
-        SQLiteDatabase db = AT.getReadableDatabase();
+        //Get a writable database
+        SQLiteDatabase db = AT.getWritableDatabase();
+
+        /*
+        When deleting delete all information of the specific animal as well as the
+        animal itself.
+        */
         db.delete(TABLE_INFO, KEY_ID + " = " + animalID, null);
         db.delete(TABLE_ANIMAL, KEY_ID + " = " + animalID, null);
     }
@@ -182,33 +233,50 @@ public class DatabaseHelper
     /*
     Gets all animalInfo based on ID
      */
-    public List<animalInformation> animalInfo(int animalID) {
+    public List<animalInformation> getAnimalInfo(int animalID)
+    {
+        //Get a readable database
         SQLiteDatabase db = AT.getReadableDatabase();
+
+        //Query to get all information for an animal
         String myQuery = "SELECT * FROM " + TABLE_INFO + " WHERE "
                 + KEY_ID + " = " + animalID;
 
+        //Create a list to store all the information for an animal
         List<animalInformation> animalInfo = new ArrayList<animalInformation>();
 
+        //Create a cursor to walk through the results
         Cursor c = db.rawQuery(myQuery, null);
 
-            if (c.moveToFirst())
+        if (c.moveToFirst())
+        {
+            do
             {
-                do
-                {
-                    animalInformation animal = new animalInformation();
-                    animal.setId(c.getString(c.getColumnIndex(KEY_ID)));
-                    animal.setWeight(c.getString(c.getColumnIndex(INFO_WEIGHT)));
-                    animal.setShedDate(c.getString(c.getColumnIndex(INFO_SHED)));
-                    animal.setAte(c.getString(c.getColumnIndex(INFO_ATE)));
+                /*
+                Get the information
+                store it in the object
+                add it to the list
+                 */
+                animalInformation animal = new animalInformation();
+                animal.setId(c.getString(c.getColumnIndex(KEY_ID)));
+                animal.setWeight(c.getString(c.getColumnIndex(INFO_WEIGHT)));
+                animal.setShedDate(c.getString(c.getColumnIndex(INFO_SHED)));
+                animal.setAte(c.getString(c.getColumnIndex(INFO_ATE)));
 
-                    //add to the list
-                    animalInfo.add(animal);
-                }
-                while (c.moveToNext());
+                //add to the list
+                animalInfo.add(animal);
             }
+            while (c.moveToNext());
+        }
+        //return the list to the calling method
         return animalInfo;
     }
 
+    /*
+    Given an animal object
+    Override the object in the database
+    By updating the corresponding ID
+     */
     public void updateAnimal(animal anim)
     {
         SQLiteDatabase db = AT.getReadableDatabase();
@@ -219,6 +287,7 @@ public class DatabaseHelper
         String[] whereArgs = new String[] {String.valueOf(anim.getId())};
         db.update(TABLE_ANIMAL, dataToInsert, where, whereArgs);
     }
+
     /*
     Ensure the DB is actually there.
      */
